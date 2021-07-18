@@ -1,0 +1,27 @@
+{
+    "name": "insomnia-plugin-easy-share",
+    "version": "0.0.1",
+    "main": "src/main.js",
+    "license": "MIT",
+    "insomnia": {
+        "name": "easy-share",
+        "displayName": "Easy Share (by @ThilinaTLM)",
+        "description": "Scope of this plugin is to share your request collections easily with others",
+        "images": {
+          "icon": "idea.svg"
+        },
+        "publisher": {
+            "name": "Thilina Lakshan",
+            "icon": "https://avatars.githubusercontent.com/u/41065538"
+        },
+        "applications": {
+            "designer": "*",
+            "core": "*",
+            "cli": "*"
+        }
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    },
+    "devDependencies": {}
+}
