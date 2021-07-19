@@ -72,7 +72,8 @@ module.exports.workspaceActions = [
 
             if (http_code === 200) {
                 context.app.alert("Done",
-                    `Success, collection can be accesses using SERVER="${server}", ID="${id}"`
+                    `Success, collection can be accesses using SERVER="${server}", ID="${id}". 
+                     You can user direct link "${server}/file/${id}" to fetch the workspace.`
                 )
                 return true
             }
@@ -112,7 +113,7 @@ module.exports.workspaceActions = [
         },
     },
     {
-        label: 'Fetch collection (to here) (dont)',
+        label: 'Fetch collection (WARN)',
         icon: 'fa-download',
         action: async (context, models) => {
             const {server, id, request_collection} = await read_env_and_req_collection(context, models)
