@@ -3,7 +3,7 @@ const {
     ENV_VAR_NAME_ID, ENV_VAR_NAME_PWD, ENV_VAR_NAME_SERVER
 } = require("./utils")
 
-const {get_request_collection, post_request_collection, get_id_and_pwd} = require('./conn')
+const { get_request_collection, post_request_collection, get_id_and_pwd } = require('./conn')
 
 
 /**
@@ -13,21 +13,21 @@ const {get_request_collection, post_request_collection, get_id_and_pwd} = requir
  * {icon: string, action: (function(*, *): boolean), label: string}]}
  */
 module.exports.workspaceActions = [
-    {
-        label: 'Generate credentials',
-        icon: 'fa-plus-square',
-        action: async (context, models) => {
-            const {server} = await read_env_and_req_collection(context, models)
-            await context.store.setItem("server", "Hello World")
-            await context.app.alert("Info", "Hello " + await context.store.getItem("server"))
-            return true
-        },
-    },
+    // {
+    //     label: 'Generate credentials',
+    //     icon: 'fa-plus-square',
+    //     action: async (context, models) => {
+    //         const {server} = await read_env_and_req_collection(context, models)
+    //         await context.store.setItem("server", "Hello World")
+    //         await context.app.alert("Info", "Hello " + await context.store.getItem("server"))
+    //         return true
+    //     },
+    // },
     {
         label: 'Share collection',
         icon: 'fa-upload',
         action: async (context, models) => {
-            const {request_collection_json, server, id, pwd} = await read_env_and_req_collection(context, models)
+            const { request_collection_json, server, id, pwd } = await read_env_and_req_collection(context, models)
 
             if (!server || !id || !pwd) {
                 context.app.alert("Error",
@@ -42,7 +42,7 @@ module.exports.workspaceActions = [
 
             const [http_code, data] = await post_request_collection(
                 request_collection_json,
-                {server, id, pwd}
+                { server, id, pwd }
             )
 
             if (http_code === 200) {
@@ -61,7 +61,7 @@ module.exports.workspaceActions = [
         label: 'Download collection',
         icon: 'fa-download',
         action: async (context, models) => {
-            const {server, id, request_collection} = await read_env_and_req_collection(context, models)
+            const { server, id, request_collection } = await read_env_and_req_collection(context, models)
 
             if (!server || !id) {
                 context.app.alert("Error",
@@ -74,7 +74,7 @@ module.exports.workspaceActions = [
                 return false
             }
 
-            const [status, data] = await get_request_collection({server, id})
+            const [status, data] = await get_request_collection({ server, id })
             if (status === 200) {
                 const json = data.data
                 // await context.app.alert("Info", json)

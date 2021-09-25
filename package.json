@@ -1,7 +1,7 @@
 {
     "name": "insomnia-plugin-easy-share",
     "description": "Free and Opensource plugin which provides ability to share request collections with others",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main": "src/main.js",
     "license": "MIT",
     "insomnia": {
