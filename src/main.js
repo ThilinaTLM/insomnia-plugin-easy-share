@@ -1,8 +1,5 @@
-const fs = require('fs');
-const http = require('http')
-const axios = require('axios')
 const {
-    read_env_and_req_collection, convert_to_current_workspace,
+    read_env_and_req_collection,
     ENV_VAR_NAME_ID, ENV_VAR_NAME_PWD, ENV_VAR_NAME_SERVER
 } = require("./utils")
 
@@ -21,31 +18,9 @@ module.exports.workspaceActions = [
         icon: 'fa-plus-square',
         action: async (context, models) => {
             const {server} = await read_env_and_req_collection(context, models)
-
-            if (!server) {
-                context.app.alert("Error",
-                    `Sorry,
-                        ${ENV_VAR_NAME_SERVER} ${server} is need to be in the base environment.
-                        If you have already configured and still showing this message. Please try creating sample
-                        request, It will trigger insomnia to refresh base environment to resources
-                        `
-                )
-                return false
-            }
-
-
-            const [status, data] = await get_id_and_pwd(server)
-            if (status === 200) {
-                context.app.alert("Done",
-                    `[ID: "${data.id}" PWD: "${data.pwd}"]
-                     You can configure these field in base environment.
-                     ${ENV_VAR_NAME_ID}, ${ENV_VAR_NAME_PWD}`
-                )
-                return true
-            }
-
-            context.app.alert(server, data.message)
-            return false
+            await context.store.setItem("server", "Hello World")
+            await context.app.alert("Info", "Hello " + await context.store.getItem("server"))
+            return true
         },
     },
     {
@@ -105,37 +80,6 @@ module.exports.workspaceActions = [
                 // await context.app.alert("Info", json)
                 const ret = await context.data.import.raw(json)
                 await context.app.alert("Info", "Success, Check your dashboard, it will be there")
-                return true
-            }
-
-            context.app.alert("Error", data.message)
-            return false
-        },
-    },
-    {
-        label: 'Fetch collection (WARN)',
-        icon: 'fa-download',
-        action: async (context, models) => {
-            const {server, id, request_collection} = await read_env_and_req_collection(context, models)
-
-            if (!server || !id) {
-                context.app.alert("Error",
-                    `Sorry, 
-                        ${ENV_VAR_NAME_SERVER}, ${ENV_VAR_NAME_ID}
-                        are need to be in the base environment.
-                        If you have already configured and still showing this message. Please try creating sample
-                        request, It will trigger insomnia to refresh base environment to resources`
-                )
-                return false
-            }
-
-            const [status, data] = await get_request_collection({server, id})
-            if (status === 200) {
-                const json = data.data
-                // await context.app.alert("Info", json)
-                const converted_json = await convert_to_current_workspace(json, request_collection)
-                const ret = await context.data.import.raw(converted_json)
-                await context.app.alert("Info", "Success")
                 return true
             }
 
