@@ -55,7 +55,7 @@ to the backend server.
 
 
 # Self deployed backend 
-You can use `https://insomnia-easy-share.herokuapp.com` as the backend server but it is recommended to use self deployed you own because it might not be reliable.
+You can use `https://insomnia-easy-share.herokuapp.com` as the backend server but it is recommended to use self deployed server because `https://insomnia-easy-share.herokuapp.com` might not be reliable.
 To self deploy your own use docker image `thilinatlm/insomnia-plugin-easy-share-server`.
 
 
